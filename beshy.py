@@ -1,5 +1,9 @@
 import streamlit as st
-import pyautogui
+import clipboard
+import threading
+
+def copy_to_clipboard(text):
+    clipboard.copy(text)
 
 st.title('Malungkot ang beshy ko generator')
 
@@ -8,7 +12,7 @@ join = '🤸🏻'.join(text.split(' '))
 st.write(join)
 
 if st.button('Copy to clipboard'):
-    pyautogui.write(join)
-    pyautogui.hotkey('ctrl', 'c')
+    # Create a new thread to copy the text to clipboard
+    thread = threading.Thread(target=copy_to_clipboard, args=(join,))
+    thread.start()
     st.write("Text copied to clipboard!")
-
